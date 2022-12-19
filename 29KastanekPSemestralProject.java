@@ -1,9 +1,10 @@
 package semestralka;
 
 import java.util.Scanner;
+
 /**
- * min = 3,743392E-23
- * max = 3,4028235E38
+ * minimal input value = 3,743392E-23
+ * maximal input value = 3,4028235E38
  */
 /**
  * 29. Checks if the system of n-vectors with n-elements is orthogonal and if
@@ -16,32 +17,44 @@ public class KastanekPetrSemestralProject {
     private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+        //init
         int count;
         float[][] matrix;
         double[] sizes;
+        boolean isMatrix = true;
+        boolean isOrthogonal = true;
         while (true) {
+
             //input
-            System.out.println("Zadej pocet vektoru");
+            System.out.println("Zadej pocet vektoru:");
             count = sc.nextInt();
             if (count <= 0) {     //ends the program
                 break;
             }
-            System.out.println("Zadej vektory");
-
-            //generation + output
+            System.out.println("Zadej vektory:");
             matrix = CreateSquareMatrix(count);     //creates the matrix
             sizes = CalcSizes(matrix);       //creates array of the vector sizes
+
+            //calc
             if (sizes.length == 1) {        //checks if the user input generates matrix
-                System.out.println("Není soubor vektorů");
-            } 
-            else if (!IsInArray(sizes, 0) && DotProductsAllZeros(matrix)) {      //checks if matrix is orthogonal
-                PrintMatrix(matrix);
-                System.out.println("System je ortogonalni");
+                isMatrix = false;
+            } else {
+                isOrthogonal = (!IsInArray(sizes, 0) && DotProductsAllZeros(matrix)); //checks if matrix is orthogonal
+            }
+
+            //out
+            System.out.println();
+            PrintMatrix(matrix);
+            System.out.println();
+            if (isMatrix && isOrthogonal) {
+                System.out.println("System je ortogonalni.");
+                System.out.println();
                 Normalize(matrix, sizes);       //transforms the matrix into normal form
                 PrintMatrix(matrix);
+            } else if (isMatrix) {
+                System.out.println("Systém není ortogonální.");
             } else {
-                PrintMatrix(matrix);
-                System.out.println("System neni ortogonalni");
+                System.out.println("Není soubor vektorů.");
             }
             System.out.println();
         }
@@ -83,7 +96,8 @@ public class KastanekPetrSemestralProject {
     }
 
     /**
-     * Transforms vectors in matrix to normal form
+     * Transforms vectors in matrix to normal form by dividing each element by
+     * the vector size
      *
      * @param arr matrix to transform
      * @param sizes array of vector sizes
@@ -108,10 +122,10 @@ public class KastanekPetrSemestralProject {
         for (int lineA = 0; lineA < array.length - 1; lineA++) {
             for (int lineB = lineA + 1; lineB < array.length; lineB++) {
                 prod = 0;
-                for (int n = 0; n < array.length; n++) {
+                for (int n = 0; n < array.length; n++) {        //no need to use array[0].length because the matrix is square
                     prod += (array[lineA][n] * array[lineB][n]);
                 }
-                
+
                 if (prod != 0) {
                     return false;
                 }
@@ -123,7 +137,7 @@ public class KastanekPetrSemestralProject {
     /**
      * Checks if specified element is in the array
      *
-     * @param a the array to arr in
+     * @param a the array to search
      * @param a the element to find
      * @return boolean (true if element is in array)
      */
