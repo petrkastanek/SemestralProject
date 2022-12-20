@@ -72,14 +72,16 @@ public class KastanekPetrSemestralProject {
 
             //out
             System.out.println();
-            PrintMatrix(matrix);
-            System.out.println();
             if (isMatrix && isOrthogonal) {
+                System.out.println();
+                PrintMatrix(matrix);
                 System.out.println("System je ortogonalni.");
                 System.out.println();
                 Normalize(matrix, sizes);       //transforms the matrix into normal form
                 PrintMatrix(matrix);
             } else if (isMatrix) {
+                System.out.println();
+                PrintMatrix(matrix);
                 System.out.println("Systém není ortogonální.");
             } else {
                 System.out.println("Není soubor vektorů.");
