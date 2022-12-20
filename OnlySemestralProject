@@ -3,8 +3,7 @@ package semestralka;
 import java.util.Scanner;
 
 /**
- * minimal input value = 3,743392E-23
- * maximal input value = 3,4028235E38
+ * minimal input value = 3,743392E-23 maximal input value = 3,4028235E38
  */
 /**
  * 29. Checks if the system of n-vectors with n-elements is orthogonal and if
@@ -44,14 +43,16 @@ public class KastanekPetrSemestralProject {
 
             //out
             System.out.println();
-            PrintMatrix(matrix);
-            System.out.println();
             if (isMatrix && isOrthogonal) {
+                System.out.println();
+                PrintMatrix(matrix);
                 System.out.println("System je ortogonalni.");
                 System.out.println();
                 Normalize(matrix, sizes);       //transforms the matrix into normal form
                 PrintMatrix(matrix);
             } else if (isMatrix) {
+                System.out.println();
+                PrintMatrix(matrix);
                 System.out.println("Systém není ortogonální.");
             } else {
                 System.out.println("Není soubor vektorů.");
@@ -122,7 +123,7 @@ public class KastanekPetrSemestralProject {
         for (int lineA = 0; lineA < array.length - 1; lineA++) {
             for (int lineB = lineA + 1; lineB < array.length; lineB++) {
                 prod = 0;
-                for (int n = 0; n < array.length; n++) {        //no need to use array[0].length because the matrix is square
+                for (int n = 0; n < array.length; n++) {
                     prod += (array[lineA][n] * array[lineB][n]);
                 }
 
